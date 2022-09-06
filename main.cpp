@@ -1,19 +1,8 @@
-/*
- *  rectangles.c
- *  written by Holmes Futrell
- *  use however you want
- */
-
 #include <chrono>
 #include <time.h>
 #include <SDL.h>
 #include "Common.h"
 #include "LevelMap.h"
-//#include "Game.h"
-
-//Game* game;
-
-
 
 float block_size = 20.0f;
 
