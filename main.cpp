@@ -11,7 +11,7 @@ LevelMapPtr level;
 void
 render(SDL_Renderer *renderer)
 {
-    SDL_SetRenderDrawColor(renderer, 94, 94, 94, 255);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
     SDL_RenderClear(renderer);
     level->render(renderer);
     SDL_RenderPresent(renderer);
@@ -53,7 +53,9 @@ int main(int argc, char *argv[])
     /* create window and renderer */
     window =
     SDL_CreateWindow(NULL, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
-                     SDL_WINDOW_OPENGL | SDL_WINDOW_FULLSCREEN_DESKTOP);
+                     SDL_WINDOW_OPENGL 
+                     //| SDL_WINDOW_FULLSCREEN_DESKTOP
+                     );
     if (!window) {
         printf("Could not initialize Window\n");
         return 1;
