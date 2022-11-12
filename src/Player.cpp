@@ -15,12 +15,12 @@ void Player::render(SDL_Renderer* renderer) const
     const math::vector2& player_position = getPosition();
 	auto w = _size.x;
 	auto h = _size.y;
-	SDL_Rect player_rect(
-		Utils::clamp(player_position.x - w / 2.f, 0.f, float(SCREEN_WIDTH))
-		, Utils::clamp(player_position.y - h / 2, 0.f, float(SCREEN_HEIGHT))
-		, w
-		, h
-	);
+	SDL_Rect player_rect{
+		(int)Utils::clamp(player_position.x - w / 2.f, 0.f, float(SCREEN_WIDTH))
+		, (int)Utils::clamp(player_position.y - h / 2, 0.f, float(SCREEN_HEIGHT))
+		, (int)w
+		, (int)h
+	};
     SDL_SetRenderDrawColor(renderer, 0, 100, 200, 0);
     SDL_RenderFillRect(renderer, &player_rect);
 }
