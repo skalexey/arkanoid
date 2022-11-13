@@ -14,6 +14,8 @@ public:
     Player(const LevelMapCollider* collider);
     void render(SDL_Renderer* renderer) const;
 	void setPosition(const math::vector2& pos);
+	void setX(float x);
+	void setY(float y);
 	const math::vector2& getPosition() const {
 		return _collider.getPosition();
 	}

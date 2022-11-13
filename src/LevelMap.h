@@ -44,7 +44,10 @@ public:
 	// Return remaining damage
 	int damageBlock(FieldBlock* block_ptr, int dmg);
     void update(float dt);
-
+	void onMouseMove(SDL_MouseMotionEvent* event);
+	void onMouseButtonDown();
+	void onMainAction();
+		
 private:
     void generate();
 	void new_game();

@@ -9,6 +9,8 @@ public:
     Collider();
     virtual bool containPoint(int x, int y) const;
     void setPosition(const math::vector2& new_position);
+	void setX(float x);
+	void setY(float y);
     const math::vector2& getPosition() const;
 
 protected:

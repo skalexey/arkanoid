@@ -19,7 +19,7 @@ render(SDL_Renderer *renderer)
 
 void handleMouseButtonDown(SDL_Event * event)
 {
-    //level->onMouseButtonDown();
+    level->onMouseButtonDown();
 }
 
 /* called from main event loop */
@@ -28,9 +28,9 @@ void handleMouseButtonUp(SDL_Event * event)
     //level->onMouseButtonUp();
 }
 
-void handleMouseMove(SDL_Event* event)
+void handleMouseMove(SDL_MouseMotionEvent* event)
 {
-    //level->onMouseMove();
+    level->onMouseMove(event);
 }
 
 int main(int argc, char *argv[])
@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
     window =
     SDL_CreateWindow(NULL, 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT,
                      SDL_WINDOW_OPENGL 
-                     //| SDL_WINDOW_FULLSCREEN_DESKTOP
+                     | SDL_WINDOW_FULLSCREEN_DESKTOP
                      );
     if (!window) {
         printf("Could not initialize Window\n");
@@ -91,13 +91,18 @@ int main(int argc, char *argv[])
                     handleMouseButtonUp(&event);
                     break;
                 case SDL_MOUSEMOTION:
-                    handleMouseMove(&event);
+                    handleMouseMove((SDL_MouseMotionEvent*)&event);
                     break;
                 case SDL_QUIT:
                     done = 1;
                     break;
             }
         }
+		
+		const Uint8* state = SDL_GetKeyboardState(NULL);
+		if (state[SDL_SCANCODE_ESCAPE])
+			return 0;
+		
         level->update(dt);
         render(renderer);
         SDL_Delay(1);

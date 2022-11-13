@@ -33,6 +33,16 @@ void Player::setPosition(const math::vector2& pos)
 	});
 }
 
+void Player::setX(float x)
+{
+	_collider.setX(Utils::clamp(x, 0.f, float(SCREEN_WIDTH)));
+}
+
+void Player::setY(float y)
+{
+	_collider.setY(Utils::clamp(y, 0.f, float(SCREEN_WIDTH)));
+}
+
 void Player::move(const math::vector2& direction, float dt)
 {
     math::vector2 p = direction;

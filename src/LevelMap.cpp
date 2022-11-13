@@ -40,6 +40,11 @@ void LevelMap::update(float dt)
 			_player->move(_joystick.getDirection(), dt);
 }
 
+void LevelMap::onMouseMove(SDL_MouseMotionEvent* event)
+{
+	_player->setX(float(event->x));
+}
+
 void LevelMap::destroyBlock(const math::point2& block_field_position)
 {
     FieldBlock& field_block = _field[std::size_t(block_field_position.y)][std::size_t(block_field_position.x)];
@@ -79,17 +84,27 @@ int LevelMap::damageBlock(FieldBlock* block_ptr, int dmg)
 	return 0;
 }
 
-bool LevelMap::updateBalls(float dt)
+void LevelMap::onMainAction()
 {
 	// Update first ball in initial state
 	if (!_balls.empty())
 	{
 		auto&& ball = _balls.front();
-		const Uint8* state = SDL_GetKeyboardState(NULL);
-		if (state[SDL_SCANCODE_SPACE])
-			if (!ball->running())
-				ball->kickUp();
+		if (!ball->running())
+			ball->kickUp();
 	}
+}
+
+void LevelMap::onMouseButtonDown()
+{
+	onMainAction();
+}
+
+bool LevelMap::updateBalls(float dt)
+{
+	const Uint8* state = SDL_GetKeyboardState(NULL);
+	if (state[SDL_SCANCODE_SPACE])
+		onMainAction();
 
 	// Update all balls movement
 	for (auto&& ball_ptr : _balls)
