@@ -9,7 +9,7 @@ job()
 	cd "$THIS_DIR"
 
 	source set_android_environment.sh
-	
+
 	# Load common variables
 	source android_config.sh
 
@@ -43,7 +43,10 @@ job()
 	# Configure
 	cp "$root_path/build.gradle.replace" "app/build.gradle"
 	cp "$root_path/jni_CMakeLists.txt.replace" "app/jni/CMakeLists.txt"
-
+	cp "$root_path/keystore.properties.put" "app/keystore.properties"
+	echo "keystore.properties" >> app/.gitignore
+	
+	# Go back to the root directory
 	cd "$root_path"
 
 	log_success "Finished project creation" " -" " ---"

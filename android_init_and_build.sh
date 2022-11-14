@@ -11,7 +11,7 @@ job()
 	local log_prefix="-- [${folderName} android init and build script]: "
 
 	source android_init.sh
-	source android_build.sh
+	source android_build.sh ${@:2}
 
 	log_success "Finished everything" " -" " ---"
 }

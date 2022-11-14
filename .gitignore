@@ -3,4 +3,5 @@ x64/
 Build-cmake/
 build/
 android-project/
-
+my-release-key.jks
+keystore.properties.put
