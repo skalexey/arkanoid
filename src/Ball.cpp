@@ -1,6 +1,7 @@
 #include <cmath>
 #include "Utils.h"
 #include "vector_2d.h"
+#include "SDL_Utils.h"
 #include "Ball.h"
 
 #define MIN_VX 10.f
@@ -60,7 +61,6 @@ void Ball::render(SDL_Renderer* renderer) const
     ball_rect.y = Utils::clamp(p.y - _size.y / 2, 0.f, float(SCREEN_HEIGHT));
     ball_rect.w = _size.x;
     ball_rect.h = _size.y;
-    //RenderFillCircle(buf, p, ball_rect.w / 2.f);
-	SDL_RenderFillRect(renderer, &ball_rect);
+    RenderFillCircle(renderer, p, ball_rect.w / 2.f);
 }
 
