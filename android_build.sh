@@ -43,8 +43,9 @@ job()
 
 	if [[ "$build_config" == "Release" ]]; then
 		if [ ! -f "$root_dir/$key" ]; then
+			log_info "Generating a new key ..."
 			keytool -genkey -v -keystore "$root_dir/$key" -keyalg RSA -keysize 2048 -validity 10000 -alias my-alias
-			[ $? -ne 0 ] && log_error "Error while generating the key" && return 2
+			[ $? -ne 0 ] && log_error "Error while generating the key" && return 2 || log_info "Key generated"
 		else
 			log_info "Key '$key' already exists"
 		fi
