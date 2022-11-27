@@ -102,7 +102,8 @@ endif()
 
 # SDL dependency
 set(SDL_DIR ${DEPS}/SDL)
-add_subdirectory(${SDL_DIR} ${SDL_DIR}/build EXCLUDE_FROM_ALL)
+set(SDL_BUILD_DIR ${SDL_DIR}/build)
+add_subdirectory(${SDL_DIR} ${SDL_BUILD_DIR} EXCLUDE_FROM_ALL)
 set(CUSTOM_INCLUDES ${CUSTOM_INCLUDES} ${SDL_DIR}/include)
 
 # Set arkanoid_INCLUDES global variable
@@ -193,3 +194,8 @@ foreach(item ${LIBS})
 	endif()
 	MATH(EXPR cnt "${cnt}+1")
 endforeach()
+
+add_custom_command(TARGET ${MODULE_NAME} POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_RUNTIME_DLLS:${MODULE_NAME}> $<TARGET_FILE_DIR:${MODULE_NAME}>
+  COMMAND_EXPAND_LISTS
+)
