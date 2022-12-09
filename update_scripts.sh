@@ -10,6 +10,7 @@ function update_scripts()
 	cp "$scripts_dir/include/log.sh" .
 	cp "$scripts_dir/include/os.sh" .
 	cp "$scripts_dir/include/file_utils.sh" .
+	cp "$scripts_dir/include/file_utils.py" .
 	cp -a "$scripts/android/SDL/." .
 	cp "$scripts/android/set_android_environment.sh" .
 	
