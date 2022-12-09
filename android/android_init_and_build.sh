@@ -5,17 +5,15 @@ job()
 	local THIS_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 	cd "$THIS_DIR"
 
+	source android_config.sh
+	
 	local folderName=${PWD##*/}
 
-	source log.sh
-	local log_prefix="-- [${folderName} android init build run script]: "
+	source "$root_dir/log.sh"
+	local log_prefix="-- [${folderName} android init and build script]: "
 
 	source android_init.sh
-	[ $? -ne 0 ] && return 1
-	source android_build.sh
-	[ $? -ne 0 ] && return 2
-	source android_run.sh
-	[ $? -ne 0 ] && return 3
+	source android_build.sh ${@:2}
 
 	log_success "Finished everything" " -" " ---"
 }

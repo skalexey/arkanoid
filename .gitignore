@@ -3,5 +3,6 @@ x64/
 Build-cmake/
 build/
 android-project/
+__pycache__/
 my-release-key.jks
 keystore.properties.put

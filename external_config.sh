@@ -7,3 +7,5 @@ if is_windows; then
 else
 	export arkanoid_deps="${HOME}/Projects"
 fi
+
+[ ! -z arkanoid_deps ] && build_deps=$arkanoid_deps
