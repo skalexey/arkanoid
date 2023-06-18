@@ -3,6 +3,24 @@
 #include <SDL.h>
 #include "Common.h"
 #include "LevelMap.h"
+#include <utils/Log.h>
+
+struct log_stream :  private std::streambuf , public std::ostream
+{
+    log_stream() : std::ostream(this) {}
+
+private:
+
+    log_stream& operator << (const std::string& s) {
+        SDL_Log("%s", s.c_str());
+        return *this;
+    }
+};
+
+log_stream g_log_stream;
+
+LOG_POSTFIX("\n");
+LOG_PREFIX("[arkanoid]: ");
 
 float block_size = 20.0f;
 
@@ -35,7 +53,8 @@ void handleMouseMove(SDL_MouseMotionEvent* event)
 
 int main(int argc, char *argv[])
 {
-    
+    LOG_STREAM([]() -> std::ostream& {return g_log_stream;})
+    LOG("Start the game");
     SDL_Window *window;
     SDL_Renderer *renderer;
     int done;

@@ -9,6 +9,9 @@ job()
 	source android_config.sh
 
 	adb shell am start "$app/$app.$classname"
+	logfile=log.txt
+	rm $logfile
+	adb logcat > $logfile
 }
 
 job $@

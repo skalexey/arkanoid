@@ -1,7 +1,7 @@
 ﻿# CMakeList.txt : CMake project for arkanoid, include source and define
 # project specific logic here.
 #
-cmake_minimum_required (VERSION 3.8)
+cmake_minimum_required (VERSION 3.15)
 cmake_policy(SET CMP0042 OLD)
 set(CMAKE_MACOSX_RPATH 1)
 
@@ -38,6 +38,8 @@ if (${MODULE_NAME}_CMAKE_VERBOSE)
 	message("${MODULE_NAME}: ${MODULE_NAME}_INHERIT_PARENT_SRC is ${${MODULE_NAME}_INHERIT_PARENT_SRC}")
 	message("${MODULE_NAME}: ${MODULE_NAME}_INHERIT_PARENT_LIBS is ${${MODULE_NAME}_INHERIT_PARENT_LIBS}")
 endif()
+
+option (LOG_ON "Logs on" ON)
 
 if (LOG_ON)
 	add_compile_definitions("LOG_ON")
@@ -100,6 +102,10 @@ else()
 	set(INCLUDES $ENV{arkanoid_includes})
 endif()
 
+# Utils dependency
+set(UTILS_DIR "${DEPS}/Utils")
+set(CUSTOM_INCLUDES ${CUSTOM_INCLUDES} ${UTILS_DIR}/include)
+
 # SDL dependency
 set(SDL_DIR ${DEPS}/SDL)
 set(SDL_BUILD_DIR ${SDL_DIR}/build)
@@ -149,13 +155,13 @@ endif()
 # add executable
 if(BUILD_LIBRARY)
 	message("BUILD_LIBRARY")
-	add_library (${MODULE_NAME} ${SRC} ${HEADERS} main.cpp)
+	add_library (${MODULE_NAME} ${SRC} ${HEADERS} ${PROJECT_SOURCE_DIR}/main.cpp)
 elseif(BUILD_SHARED_LIBRARY)
 	message("BUILD_SHARED_LIBRARY")
-	add_library (${MODULE_NAME} SHARED ${SRC} ${HEADERS} main.cpp)
+	add_library (${MODULE_NAME} SHARED ${SRC} ${HEADERS} ${PROJECT_SOURCE_DIR}/main.cpp)
 else()
 	message("BUILD_EXECUTABLE")
-	add_executable (${MODULE_NAME} ${SRC} ${HEADERS} main.cpp)
+	add_executable (${MODULE_NAME} ${SRC} ${HEADERS} ${PROJECT_SOURCE_DIR}/main.cpp)
 endif()
 
 # SDL2::SDL2main may or may not be available. It is e.g. required by Windows GUI applications  
@@ -166,7 +172,7 @@ if(TARGET SDL2::SDL2main)
 elseif(TARGET SDL2main)
 	target_link_libraries(${MODULE_NAME} PRIVATE SDL2main)
 else()
-	error("No SDL2main target found!")
+	message(SEND_ERROR "No SDL2main target found!")
 endif()
 # Link to the actual SDL2 library. SDL2::SDL2 is the shared SDL library, SDL2::SDL2-static is the static SDL libarary.
 target_link_libraries(${MODULE_NAME} PRIVATE SDL2)
