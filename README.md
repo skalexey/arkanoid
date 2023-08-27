@@ -1,3 +1,4 @@
+[_metadata_:prjrocks]:- "htm2p4in"
 # arkanoid
 Very simple arkanoid game. Uses SDL. CMake is used in the project. Android build supported.
 
