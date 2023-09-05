@@ -54,13 +54,13 @@ void Ball::update(float dt)
 
 void Ball::render(SDL_Renderer* renderer) const
 {
-    SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);
-    SDL_Rect ball_rect;
+	SDL_SetRenderDrawColor(renderer, 200, 200, 200, 0);
+	SDL_Rect ball_rect;
 	auto& p = getPosition();
-    ball_rect.x = Utils::clamp(p.x - _size.x / 2, 0.f, float(SCREEN_WIDTH));
-    ball_rect.y = Utils::clamp(p.y - _size.y / 2, 0.f, float(SCREEN_HEIGHT));
-    ball_rect.w = _size.x;
-    ball_rect.h = _size.y;
-    RenderFillCircle(renderer, p, ball_rect.w / 2.f);
+	ball_rect.x = Utils::clamp(p.x - _size.x / 2, 0.f, float(SCREEN_WIDTH));
+	ball_rect.y = Utils::clamp(p.y - _size.y / 2, 0.f, float(SCREEN_HEIGHT));
+	ball_rect.w = _size.x;
+	ball_rect.h = _size.y;
+	RenderFillCircle(renderer, p, ball_rect.w / 2.f);
 }
 

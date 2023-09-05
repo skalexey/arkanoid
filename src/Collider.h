@@ -6,12 +6,12 @@
 class Collider
 {
 public:
-    Collider();
-    virtual bool containPoint(int x, int y) const;
-    void setPosition(const math::vector2& new_position);
+	Collider();
+	virtual bool containPoint(int x, int y) const;
+	void setPosition(const math::vector2& new_position);
 	void setX(float x);
 	void setY(float y);
-    const math::vector2& getPosition() const;
+	const math::vector2& getPosition() const;
 
 protected:
 	math::vector2 _position;

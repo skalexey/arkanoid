@@ -12,7 +12,7 @@ Player::Player(const LevelMapCollider* level_map_collider)
 
 void Player::render(SDL_Renderer* renderer) const
 {
-    const math::vector2& player_position = getPosition();
+	const math::vector2& player_position = getPosition();
 	auto w = _size.x;
 	auto h = _size.y;
 	SDL_Rect player_rect{
@@ -21,8 +21,8 @@ void Player::render(SDL_Renderer* renderer) const
 		, (int)w
 		, (int)h
 	};
-    SDL_SetRenderDrawColor(renderer, 0, 100, 200, 0);
-    SDL_RenderFillRect(renderer, &player_rect);
+	SDL_SetRenderDrawColor(renderer, 0, 100, 200, 0);
+	SDL_RenderFillRect(renderer, &player_rect);
 }
 
 void Player::setPosition(const math::vector2& pos)
@@ -45,8 +45,8 @@ void Player::setY(float y)
 
 void Player::move(const math::vector2& direction, float dt)
 {
-    math::vector2 p = direction;
-    p *= (_default_speed * dt);
-    setPosition(getPosition() + p);
+	math::vector2 p = direction;
+	p *= (_default_speed * dt);
+	setPosition(getPosition() + p);
 }
 

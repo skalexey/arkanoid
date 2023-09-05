@@ -13,7 +13,7 @@ class LevelMap;
 class LevelMapCollider : public Collider
 {
 public:
-    LevelMapCollider(LevelMap const* level_map, FieldBlock block_type = BLOCK_NONE);
+	LevelMapCollider(LevelMap const* level_map, FieldBlock block_type = BLOCK_NONE);
 	auto check(const CircleCollider& collider2) const {
 		for (auto&& it = _colliders.begin(); it != _colliders.end(); ++it)
 			if (it->second.check(collider2))
@@ -26,7 +26,7 @@ public:
 				return it;
 		return _colliders.end();
 	}
-    void removeBlockCollider(FieldBlock* block);
+	void removeBlockCollider(FieldBlock* block);
 	auto findBlock(FieldBlock* block_ptr) const {
 		auto it = _colliders.find(block_ptr);
 		if (it != _colliders.end())
@@ -43,8 +43,8 @@ public:
 	}
 
 private:
-    void init(LevelMap const* level_map, FieldBlock block_type);
-    LevelMap const* _level_map;
-    std::unordered_map<const FieldBlock*, BoxCollider> _colliders;
+	void init(LevelMap const* level_map, FieldBlock block_type);
+	LevelMap const* _level_map;
+	std::unordered_map<const FieldBlock*, BoxCollider> _colliders;
 };
 using spLevelMapCollider = std::shared_ptr<LevelMapCollider>;

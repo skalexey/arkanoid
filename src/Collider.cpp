@@ -6,7 +6,7 @@ Collider::Collider()
 
 void Collider::setPosition(const math::vector2& new_position)
 {
-    _position = new_position;
+	_position = new_position;
 }
 
 void Collider::setX(float x)
@@ -21,11 +21,11 @@ void Collider::setY(float y)
 
 bool Collider::containPoint(int x, int y) const
 {
-    return false;
+	return false;
 }
 
 const math::vector2& Collider::getPosition() const
 {
-    return _position;
+	return _position;
 }
 

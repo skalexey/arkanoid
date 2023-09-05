@@ -12,7 +12,7 @@ class Ball
 {
 public:
 	Ball(int power);
-    void render(SDL_Renderer* renderer) const;
+	void render(SDL_Renderer* renderer) const;
 	void setPosition(const math::vector2& position) {
 		_collider.setPosition(position);
 	}
@@ -47,14 +47,14 @@ public:
 	void update(float dt);
 
 private:
-    int _power = 0;
+	int _power = 0;
 	int _initial_power = 0;
 	const math::vector2 _size = { 20.f, 20.f };
 	CircleCollider _collider;
 	math::vector2 _velocity = {0.f, 0.f};
 
 private:
-    std::function<void()> _on_affect;
+	std::function<void()> _on_affect;
 };
 using spBall = std::shared_ptr<Ball>;
 

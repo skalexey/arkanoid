@@ -47,8 +47,8 @@ void LevelMap::onMouseMove(SDL_MouseMotionEvent* event)
 
 void LevelMap::destroyBlock(const math::point2& block_field_position)
 {
-    FieldBlock& field_block = _field[std::size_t(block_field_position.y)][std::size_t(block_field_position.x)];
-    FieldBlock* field_block_ptr = &field_block;
+	FieldBlock& field_block = _field[std::size_t(block_field_position.y)][std::size_t(block_field_position.x)];
+	FieldBlock* field_block_ptr = &field_block;
 	destroyBlock(field_block_ptr);
 }
 
@@ -98,6 +98,10 @@ void LevelMap::onMainAction()
 void LevelMap::onMouseButtonDown()
 {
 	onMainAction();
+}
+
+void LevelMap::onMouseButtonUp()
+{
 }
 
 bool LevelMap::updateBalls(float dt)
@@ -150,47 +154,47 @@ bool LevelMap::updateBalls(float dt)
 		_balls.front()->setInitialPower(power + 1);
 		_balls.front()->setPower(power + 1);
 	}
-    return true;
+	return true;
 }
 
 void LevelMap::render(SDL_Renderer* renderer)
 {
-    for(int y = 0; y < _level_size_y; y++)
-    {
-        const std::vector<FieldBlock>& field_row = _field[y];
-        for(int x = 0; x < _level_size_x; x++)
-        {
-            const FieldBlock& block = field_row[x];
+	for(int y = 0; y < _level_size_y; y++)
+	{
+		const std::vector<FieldBlock>& field_row = _field[y];
+		for(int x = 0; x < _level_size_x; x++)
+		{
+			const FieldBlock& block = field_row[x];
 			SDL_Rect block_rect;
-            block_rect.x = x * brick_width;
-            block_rect.y = y * brick_height;
-            block_rect.h = brick_height;
-            block_rect.w = brick_width;
-            uint8_t r = 0, g = 0, b = 0;
-            switch(block)
-            {
-                case BLOCK_CONCRETE:
-                    r = 164;
-                    g = 165;
-                    b = 164;
-                    break;
-                case BLOCK_BRICK:
-                    r = 200;
-                    g = 100;
-                    b = 0;
-                    break;
-                case BLOCK_NONE:
-                    break;
-                default:
-                    break;
-            }
-            if(block != BLOCK_NONE)
-            {
-                SDL_SetRenderDrawColor(renderer, r, g, b, 0);
-                SDL_RenderFillRect(renderer, &block_rect);
-            }
-        }
-    }
+			block_rect.x = x * brick_width;
+			block_rect.y = y * brick_height;
+			block_rect.h = brick_height;
+			block_rect.w = brick_width;
+			uint8_t r = 0, g = 0, b = 0;
+			switch(block)
+			{
+				case BLOCK_CONCRETE:
+					r = 164;
+					g = 165;
+					b = 164;
+					break;
+				case BLOCK_BRICK:
+					r = 200;
+					g = 100;
+					b = 0;
+					break;
+				case BLOCK_NONE:
+					break;
+				default:
+					break;
+			}
+			if(block != BLOCK_NONE)
+			{
+				SDL_SetRenderDrawColor(renderer, r, g, b, 0);
+				SDL_RenderFillRect(renderer, &block_rect);
+			}
+		}
+	}
 	_player->render(renderer);
 	for (auto& ball : _balls)
 		ball->render(renderer);
@@ -198,28 +202,28 @@ void LevelMap::render(SDL_Renderer* renderer)
 
 void LevelMap::generate()
 {
-    _level_size_x = int(SCREEN_WIDTH / brick_width);
-    _level_size_y = int(SCREEN_HEIGHT / 2 / brick_height);
+	_level_size_x = int(SCREEN_WIDTH / brick_width);
+	_level_size_y = int(SCREEN_HEIGHT / 2 / brick_height);
 	_field.reserve(_level_size_y);
-    for(int y = 0; y < _level_size_y; y++)
-    {
-        std::vector<FieldBlock> field_row(_level_size_x, BLOCK_NONE);
+	for(int y = 0; y < _level_size_y; y++)
+	{
+		std::vector<FieldBlock> field_row(_level_size_x, BLOCK_NONE);
 		field_row.reserve(_level_size_x);
-        for(int x = 0; x < _level_size_x; x++)
-        {
-            if(x == 0 || x == _level_size_x - 1 || y == 0 || y == _level_size_y - 1 || (y % 2 == 0 && x % 2 == 0))
-            {
+		for(int x = 0; x < _level_size_x; x++)
+		{
+			if(x == 0 || x == _level_size_x - 1 || y == 0 || y == _level_size_y - 1 || (y % 2 == 0 && x % 2 == 0))
+			{
 				field_row[x] = BLOCK_CONCRETE;
-            }
-            else if(!(x == 1 && y == 1) && !(x == 1 && y == 2) && ! (x == 2 && y == 1)) // start position should be clean
-            {
-                field_row[x] = (FieldBlock)Utils::random(0, 2) == 0 ? BLOCK_BRICK : BLOCK_NONE;
-            }
-            else
-            {
-                field_row[x] = BLOCK_NONE;
-            }
-        }
-        _field.push_back(field_row);
-    }
+			}
+			else if(!(x == 1 && y == 1) && !(x == 1 && y == 2) && ! (x == 2 && y == 1)) // start position should be clean
+			{
+				field_row[x] = (FieldBlock)Utils::random(0, 2) == 0 ? BLOCK_BRICK : BLOCK_NONE;
+			}
+			else
+			{
+				field_row[x] = BLOCK_NONE;
+			}
+		}
+		_field.push_back(field_row);
+	}
 }
